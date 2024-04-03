@@ -1,0 +1,83 @@
+.App {
+    height: 100vh;
+}
+
+.App-logo {
+    height: calc(12vh + 3vw);
+}
+
+.App-header {
+    margin: 3vw;
+    height: 15vh;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: start;
+    font-size: calc(4px + 1vw);
+    color: #df344b;
+}
+
+.App-header h1 {
+    padding-top: 4.5vh;
+}
+
+hr {
+    border: none;
+    width: 95%;
+    height: 2px;
+    background-color: #df344b;
+}
+
+.App-body {
+    margin: 6vw 0 0 5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    font-size: calc(5px + 1vw);
+}
+
+.App-body .login {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    font-size: calc(8px + 1vw);
+}
+
+.App-body .login input {
+    margin: 0 1vw;
+    padding: 0.5vh;
+    font-size: calc(8px + 1vw);
+}
+
+.App-body .login button {
+    margin: 0 1vw;
+    font-weight: lighter;
+    padding: 5px 10px;
+    font-size: calc(8px + 1vw);
+    background-color: transparent;
+    border: 1px solid #000;
+    border-radius: 5px
+}
+
+.App-footer {
+    height: 10vh;
+    width: 100%;
+    text-align: center;
+    font-size: calc(5px + 1vw);
+    position: fixed;
+    bottom: 0;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

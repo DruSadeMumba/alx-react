@@ -1,3 +1,5 @@
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 module.exports = {
   entry: "./src/index.js",
   devtool: "inline-source-map",
@@ -24,7 +26,15 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ["babel-loader"],
+      },
     ],
+  },
+  resolve: {
+    extensions: [".*",".js",".jsx"],
   },
   devServer: {
     static: "./dist",
@@ -33,4 +43,11 @@ module.exports = {
     hot: true,
     port: 8564,
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      name: "index.html",
+      inject: false,
+      template: "./dist/index.html",
+    }),
+  ],
 };

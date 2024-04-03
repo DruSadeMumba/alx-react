@@ -11,8 +11,8 @@ describe("getFooterCopy", () => {
     expect(getFooterCopy(true)).toBe("Holberton School");
   });
 
-  it("should return 'Holberton School main dashboard' when isIndex is false", () => {
-    expect(getFooterCopy(false)).toBe("Holberton School main dashboard");
+  it("should return 'Holberton School main dashboards' when isIndex is false", () => {
+    expect(getFooterCopy(false)).toBe("Holberton School main dashboards");
   });
 });
 

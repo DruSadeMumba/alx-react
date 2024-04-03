@@ -1,5 +1,8 @@
 .idea/
 /*/*/node_modules/
 /*/*/package-lock.json
-/*/*/dist/main.js
-/*/*/dist/main.js.LICENSE.txt
+/*/*/dist/bundle.js
+/*/*/dist/bundle.js.LICENSE.txt
+/*/*/*/bundle.js.LICENSE.txt
+/0x00-Webpack/task_3/public/
+/0x01-react_intro/task_5/dashboard/node_modules/

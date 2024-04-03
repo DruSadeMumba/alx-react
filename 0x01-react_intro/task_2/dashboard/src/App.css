@@ -1,24 +1,20 @@
-.App {
-    max-height: 100vh;
-    background-color: #ffffff;
-}
 .App-logo {
-    height: calc(15vh + 5vw);
+    height: calc(12vh + 3vw);
 }
 
 .App-header {
     margin: 3vw;
-    min-height: 20vh;
+    height: 15vh;
     display: flex;
     flex-direction: row;
     align-items: start;
     justify-content: start;
-    font-size: calc(5px + 1vw);
+    font-size: calc(4px + 1vw);
     color: #df344b;
 }
 
 .App-header h1 {
-    padding-top: 6.5vh;
+    padding-top: 4.5vh;
 }
 
 hr {
@@ -30,7 +26,6 @@ hr {
 
 .App-body {
     margin: 6vw 0 0 5vw;
-    min-height: 55vh;
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -38,13 +33,36 @@ hr {
     font-size: calc(5px + 1vw);
 }
 
-.App-footer {
-    min-height: 5vh;
+.App-body .login {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    align-items: end;
+    font-size: calc(8px + 1vw);
+}
+
+.App-body .login input {
+    margin: 0 1vw;
+    padding: 0.5vh;
+    font-size: calc(8px + 1vw);
+}
+
+.App-body .login button {
+    margin: 0 1vw;
+    font-weight: lighter;
+    padding: 5px 10px;
+    font-size: calc(8px + 1vw);
+    background-color: transparent;
+    border: 1px solid #000;
+    border-radius: 5px
+}
+
+.App-footer {
+    height: 10vh;
+    width: 100%;
+    text-align: center;
     font-size: calc(5px + 1vw);
+    position: fixed;
+    bottom: 0;
 }
 
 .App-link {

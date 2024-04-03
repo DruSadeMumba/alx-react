@@ -1,0 +1,61 @@
+.App {
+    max-height: 100vh;
+    background-color: #ffffff;
+}
+.App-logo {
+    height: calc(15vh + 5vw);
+}
+
+.App-header {
+    margin: 3vw;
+    min-height: 20vh;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: start;
+    font-size: calc(5px + 1vw);
+    color: #df344b;
+}
+
+.App-header h1 {
+    padding-top: 6.5vh;
+}
+
+hr {
+    border: none;
+    width: 95%;
+    height: 2px;
+    background-color: #df344b;
+}
+
+.App-body {
+    margin: 6vw 0 0 5vw;
+    min-height: 55vh;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: start;
+    font-size: calc(5px + 1vw);
+}
+
+.App-footer {
+    min-height: 5vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(5px + 1vw);
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

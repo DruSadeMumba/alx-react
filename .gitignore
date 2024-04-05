@@ -5,4 +5,5 @@
 /*/*/dist/bundle.js.LICENSE.txt
 /*/*/*/bundle.js.LICENSE.txt
 /0x00-Webpack/task_3/public/
-/0x01-react_intro/task_5/dashboard/node_modules/
+/0x01-react_intro/*/dashboard/node_modules/
+/*/*/dashboard/package-lock.json

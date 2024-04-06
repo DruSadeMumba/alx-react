@@ -1,0 +1,18 @@
+.App-logo {
+    height: calc(10vh + 3vw);
+}
+
+.App-header {
+    margin: 3vw;
+    height: 12vh;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: start;
+    font-size: calc(4px + 1vw);
+    color: #df344b;
+}
+
+.App-header h1 {
+    padding-top: 3.5vh;
+}

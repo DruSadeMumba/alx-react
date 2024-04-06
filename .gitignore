@@ -7,3 +7,4 @@
 /0x00-Webpack/task_3/public/
 /0x01-react_intro/*/dashboard/node_modules/
 /*/*/dashboard/package-lock.json
+/0x02-react_props/*/dashboard/node_modules/

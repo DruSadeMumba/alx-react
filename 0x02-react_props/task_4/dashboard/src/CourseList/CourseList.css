@@ -1,0 +1,19 @@
+table {
+    width: 90vw;
+    margin: 2.5rem auto;
+    border-collapse: collapse;
+    border: lightgrey 1px solid;
+}
+th {
+    border-bottom: lightgrey 1px solid;
+    padding: 0.45rem 0.5rem;
+    font-size: large;
+}
+
+.align-left {
+    text-align: left;
+}
+
+td {
+    padding: 0.25rem 0.5rem;
+}

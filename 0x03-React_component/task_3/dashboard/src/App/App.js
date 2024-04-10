@@ -7,6 +7,8 @@ import Footer from "../Footer/Footer";
 import CourseList from "../CourseList/CourseList";
 import {getLatestNotification} from "../utils/utils";
 import {bool, func} from "prop-types";
+import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
+import BodySection from "../BodySection/BodySection";
 
 class App extends React.Component {
   constructor(props) {
@@ -46,7 +48,19 @@ class App extends React.Component {
           <Notifications listNotifications={this.listNotifications} />
           <Header />
           <hr/>
-          {this.props.isLoggedIn ? <CourseList listCourses={this.listCourses} /> : <Login />}
+          {
+            this.props.isLoggedIn ?
+              <BodySectionWithMarginBottom title='Course list'>
+                <CourseList listCourses={this.listCourses} />
+              </BodySectionWithMarginBottom>
+            :
+              <BodySectionWithMarginBottom title='Log in to continue'>
+                <Login />
+              </BodySectionWithMarginBottom>
+          }
+          <BodySection title='News from the School'>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur earum eum id inventore minima pariatur provident quam rem sit tempora</p>
+          </BodySection>
           <Footer />
         </div>
       </React.Fragment>

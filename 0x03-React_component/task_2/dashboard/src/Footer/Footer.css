@@ -1,0 +1,8 @@
+.App-footer {
+    height: 10vh;
+    width: 100%;
+    text-align: center;
+    font-size: calc(5px + 1vw);
+    position: fixed;
+    bottom: 0;
+}

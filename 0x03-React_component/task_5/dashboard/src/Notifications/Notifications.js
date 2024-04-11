@@ -24,6 +24,10 @@ class Notifications extends React.Component {
     console.log("Close button has been clicked");
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.listNotifications.length > this.props.listNotifications.length;
+  }
+
   render() {
     return (
       <Fragment>

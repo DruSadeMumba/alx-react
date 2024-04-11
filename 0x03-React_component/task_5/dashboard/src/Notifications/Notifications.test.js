@@ -45,7 +45,7 @@ describe('Notifications component', () => {
     let wrapper;
     let listItems;
     let textElement;
-    const listNotifications = [
+    let listNotifications = [
       { id: 1, type: 'default', value: 'Notification 1' },
       { id: 2, type: 'urgent', value: 'Notification 2' },
       { id: 3, type: 'urgent', value: 'Notification 3' }
@@ -80,6 +80,16 @@ describe('Notifications component', () => {
       instance.markAsRead(1);
       expect(spy).toHaveBeenCalledWith('Notification 1 has been marked as read');
       spy.mockRestore();
+    });
+
+    it('component does not rerender when updating the props with the same list', () => {
+      const shouldUpdate = wrapper.instance().shouldComponentUpdate({ listNotifications });
+      expect(shouldUpdate).toBeFalsy();
+    });
+
+    it('component renders when updating the props with a longer list', () => {
+      const shouldUpdate = wrapper.instance().shouldComponentUpdate({ listNotifications: listNotifications.concat({ id: 4, type: 'default', value: 'Notification 4' }) });
+      expect(shouldUpdate).toBeTruthy();
     });
   });
 });

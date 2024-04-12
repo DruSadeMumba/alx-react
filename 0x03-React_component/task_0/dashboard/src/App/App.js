@@ -23,9 +23,10 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <div className="App">
-          <Notifications listNotifications={this.listNotifications} />
-          <Header />
-          <hr/>
+          <div className="heading-section">
+            <Notifications listNotifications={this.listNotifications} />
+            <Header />
+          </div>
           {this.props.isLoggedIn ? <CourseList listCourses={this.listCourses} /> : <Login />}
           <Footer />
         </div>

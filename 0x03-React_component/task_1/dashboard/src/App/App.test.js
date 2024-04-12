@@ -51,7 +51,7 @@ describe("Testing <App isLoggedIn={true} />", () => {
   });
 });
 
-describe("Testing <App logOut={function} />", () => {
+describe("Testing logOut function", () => {
 
   it("verify that when the keys control and h are pressed the logOut function, passed as a prop, is called and the alert function is called with the string Logging you out", () => {
     const wrapper = mount(<App logOut={()=>{console.log("ctrl and h are pressed")}}/>);

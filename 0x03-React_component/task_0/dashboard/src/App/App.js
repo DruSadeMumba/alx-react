@@ -15,9 +15,9 @@ class App extends React.Component {
     { id: 3, type: "urgent", html: {__html: getLatestNotification()}, },
   ];
   listCourses = [
-    { id: 1, name: "ES6", credit: 60, },
-    { id: 2, name: "Webpack", credit: 20, },
-    { id: 3, name: "React", credit: 40, },
+    { id: 1, name: "ES6", credit: 60 },
+    { id: 2, name: "Webpack", credit: 20 },
+    { id: 3, name: "React", credit: 40 },
   ];
   render() {
     return (

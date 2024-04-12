@@ -6,6 +6,7 @@ import Login from "../Login/Login";
 import Footer from "../Footer/Footer";
 import CourseList from "../CourseList/CourseList";
 import {getLatestNotification} from "../utils/utils";
+import PropTypes from "prop-types";
 
 class App extends React.Component {
   listNotifications = [
@@ -35,6 +36,10 @@ class App extends React.Component {
 
 App.defaultProps = {
   isLoggedIn: false,
+};
+
+App.propTypes = {
+  isLoggedIn: PropTypes.bool,
 };
 
 export default App;

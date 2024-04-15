@@ -3,17 +3,27 @@ import './CourseList.css';
 import {bool, number, oneOfType, string} from "prop-types";
 
 function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
+  const rowStyle = {
+    backgroundColor: isHeader ? "#deb5b545" : "#f5f5f5ab"
+  };
+
   return (
-    <tr>
+    <tr style={rowStyle}>
       {isHeader ? (
         <>
           {textSecondCell ? (
             <>
-              <th className="align-left">{textFirstCell}</th>
-              <th className="align-left">{textSecondCell}</th>
+              <th className="align-left">
+                {textFirstCell}
+              </th>
+              <th className="align-left">
+                {textSecondCell}
+              </th>
             </>
           ) : (
-            <th colSpan="2">{textFirstCell}</th>
+            <th colSpan="2">
+              {textFirstCell}
+            </th>
           )}
         </>
       ) : (

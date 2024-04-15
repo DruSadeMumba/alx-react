@@ -1,0 +1,7 @@
+.NotificationItem.default {
+    color: blue;
+}
+
+.NotificationItem.urgent {
+    color: red;
+}

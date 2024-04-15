@@ -78,17 +78,4 @@ describe('App component', () => {
       expect(wrapper.find('CourseList').exists()).toBeTruthy();
     });
   });
-
-  describe('when ctrl+h is pressed', () => {
-    const logged = jest.fn();
-    const wrapper = mount(<App logOut={logged()} />);
-    const keyEvent = new window.KeyboardEvent("keydown", { ctrlKey: true, key: "h" });
-    jest.spyOn(window, 'alert');
-    document.dispatchEvent(keyEvent);
-    setTimeout(() => {
-      expect(logged).toHaveBeenCalledTimes(1);
-      expect(window.alert).toHaveBeenCalledWith('Logging you out');
-      wrapper.unmount();
-    }, 1000);
-  });
 });

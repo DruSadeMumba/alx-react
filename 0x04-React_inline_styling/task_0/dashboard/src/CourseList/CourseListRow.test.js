@@ -7,7 +7,7 @@ configure({ adapter: new Adapter() });
 
 describe("CourseListRow component", () => {
   it("renders without crashing", () => {
-    shallow(<CourseListRow />);
+    shallow(<CourseListRow  textFirstCell={"test"}/>);
   });
 
   // Tests when isHeader is true

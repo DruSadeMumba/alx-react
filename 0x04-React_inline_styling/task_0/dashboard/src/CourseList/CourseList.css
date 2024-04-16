@@ -1,19 +1,21 @@
-table {
-    width: 90vw;
-    margin: 2.5rem auto;
-    border-collapse: collapse;
-    border: lightgrey 1px solid;
-}
 th {
-    border-bottom: lightgrey 1px solid;
-    padding: 0.45rem 0.5rem;
-    font-size: large;
-}
-
-.align-left {
+    border-bottom: 1px solid grey;
+    margin: 0;
+    padding: 0;
     text-align: left;
 }
 
+th:first-child {
+    text-align: center;
+}
+
+table {
+    width: 90%;
+    border: 1px solid grey;
+    margin: 40px auto auto;
+    padding: 0;
+}
+
 td {
-    padding: 0.25rem 0.5rem;
+    padding-left: 3px;
 }

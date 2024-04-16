@@ -2,7 +2,6 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import CourseListRow from './CourseListRow';
-import App from "../App/App";
 
 configure({ adapter: new Adapter() });
 

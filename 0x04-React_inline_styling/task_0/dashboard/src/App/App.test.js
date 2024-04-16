@@ -49,8 +49,9 @@ describe('App component', () => {
   });
 
   // Test when isLoggedIn is false
-  describe('when isLoggedIn is true', () => {
-    const wrapper = shallow(<App />);
+  describe('when isLoggedIn is false', () => {
+    let logged = { isLoggedIn: false };
+    const wrapper = shallow(<App {...logged} />);
 
     it('renders Login', () => {
       shallow(<Login />);

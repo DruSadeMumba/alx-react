@@ -44,7 +44,7 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className={css(styles.App)}>
+        <body className={css(styles.App)}>
           <Notifications listNotifications={this.listNotifications} />
           <Header />
           <hr/>
@@ -62,7 +62,8 @@ class App extends React.Component {
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur earum eum id inventore minima pariatur provident quam rem sit tempora</p>
           </BodySection>
           <Footer />
-        </div>
+          <div className="footer"></div>
+        </body>
       </React.Fragment>
     );
   }

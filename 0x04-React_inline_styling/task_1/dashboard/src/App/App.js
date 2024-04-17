@@ -61,8 +61,9 @@ class App extends React.Component {
           <BodySection title='News from the School'>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur earum eum id inventore minima pariatur provident quam rem sit tempora</p>
           </BodySection>
-          <Footer />
-          <div className="footer"></div>
+          <footer>
+            <Footer />
+          </footer>
         </body>
       </React.Fragment>
     );

@@ -7,4 +7,7 @@
 /0x00-Webpack/task_3/public/
 /*/*/dashboard/package-lock.json
 /*/*/dashboard/node_modules/
-/0x03-React_component/task_0/dashboard/src/index.css
+/*/task*/dashboard/src/index.css
+/*/task*/dashboard/dist/bundle.js
+/*/task*/dashboard/dist/57b2aa745c806c3b8fd00062145740b6.png
+/*/task*/dashboard/dist/24bab5d633e36ca8d17edc63164cf934.jpg

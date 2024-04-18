@@ -1,23 +1,51 @@
 import React from 'react';
 import {StyleSheet, css} from 'aphrodite';
 
-function Login() {
-return (
-  <div className={css(styles["App-body"])}>
-    <p>Login to access the full dashboard</p>
-    <div className={css(styles.login)}>
-      <div className={css(styles.email)}>
-        <label htmlFor="email">Email: </label>
-        <input type="email" name="email" id="email" className={css(styles.input)} />
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { isLoggedIn: false, email: '', password: '', enableSubmit: false, };
+  }
+  handleLoginSubmit = (e) => {
+    e.preventDefault();
+    this.setState({isLoggedIn: true});
+  };
+
+  handleChangeEmail = (e) => {
+    this.setState({ email: e.target.value });
+    this.validateForm();
+  };
+
+  handleChangePassword = (e) => {
+    this.setState({ password: e.target.value });
+    this.validateForm();
+  };
+
+  validateForm = () => {
+    if (this.state.email !== '' && this.state.password !== '') {
+      this.setState({ enableSubmit: true });
+    }
+    console.log('Enable submit: ', this.state.enableSubmit);
+  };
+
+  render() {
+    return (
+      <div className={css(styles["App-body"])}>
+        <p>Login to access the full dashboard</p>
+        <form className={css(styles.login)} onSubmit={this.handleLoginSubmit}>
+          <div className={css(styles.email)}>
+            <label htmlFor="email">Email: </label>
+            <input type="email" name="email" id="email" className={css(styles.input)} value={this.state.email} onChange={this.handleChangeEmail}/>
+          </div>
+          <div className={css(styles.password)}>
+            <label htmlFor="password">Password: </label>
+            <input type="password" name="password" id="password" className={css(styles.input)} value={this.state.password} onChange={this.handleChangePassword}/>
+          </div>
+          <input type="submit" className={css(styles.button)} value='OK' disabled={ !this.state.enableSubmit }/>
+        </form>
       </div>
-      <div className={css(styles.password)}>
-        <label htmlFor="password">Password: </label>
-        <input type="password" name="password" id="password" className={css(styles.input)}/>
-      </div>
-      <button type="submit" className={css(styles.button)}>OK</button>
-    </div>
-  </div>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -52,10 +80,10 @@ const styles = StyleSheet.create({
 
   button: {
     margin: '0 1vw',
-    fontWeight: 'lighter',
     padding: '5px 10px',
+    color: '#df344b',
     backgroundColor: 'transparent',
-    border: '1px solid #000',
+    border: '2px solid #df344b',
     borderRadius: '7.5px',
     '@media (max-width: 900px)': {
       margin: '0',

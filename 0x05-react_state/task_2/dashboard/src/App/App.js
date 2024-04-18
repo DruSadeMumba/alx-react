@@ -9,6 +9,7 @@ import {bool, func} from "prop-types";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import BodySection from "../BodySection/BodySection";
 import {StyleSheet, css} from 'aphrodite';
+import { AppProvider, user } from "./AppContext";
 
 class App extends React.Component {
   constructor(props) {
@@ -16,6 +17,8 @@ class App extends React.Component {
     this.handleKeydown = this.handleKeydown.bind(this);
     this.state = {
       displayDrawer: false,
+      user: user,
+      logOut: this.logOut,
     };
   }
 
@@ -26,6 +29,13 @@ class App extends React.Component {
   handleHideDrawer = () => {
     console.log("Close button has been clicked");
     this.setState({displayDrawer: false});
+  };
+
+  logIn = (email, password) => {
+    this.setState({user: {email: email, password: password, isLoggedIn: true}});
+  };
+  logOut = () => {
+    this.setState({user: user,});
   };
 
   listNotifications = [
@@ -56,41 +66,43 @@ class App extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
-        <div className={css(styles.header)}>
-          <Notifications
-            listNotifications={this.listNotifications}
-            displayDrawer={this.state.displayDrawer}
-            handleDisplayDrawer={this.handleDisplayDrawer}
-            handleHideDrawer={this.handleHideDrawer}
-          />
-          <Header />
-          <main className={css(styles.main)}>
-            <hr className={css(styles.hr)}/>
-            {
-              this.props.isLoggedIn ?
-                <BodySectionWithMarginBottom title='Course list'>
-                  <CourseList listCourses={this.listCourses} />
-                </BodySectionWithMarginBottom>
-                :
-                <BodySectionWithMarginBottom title='Log in to continue'>
-                  <Login />
-                </BodySectionWithMarginBottom>
-            }
-            <BodySection title='News from the School'>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Aperiam dicta iure natus perspiciatis? Fugiat laudantium, nam nisi quis suscipit ut veniam.
-                Asperiores corporis doloribus esse laborum omnis? Exercitationem, incidunt voluptatem!<br/>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Aperiam dicta iure natus perspiciatis? Fugiat laudantium, nam nisi quis suscipit ut veniam.
-                Asperiores corporis doloribus esse laborum omnis? Exercitationem, incidunt voluptatem!
-              </p>
-            </BodySection>
-          </main>
-          <Footer />
-        </div>
-      </React.Fragment>
+      <AppProvider value={{user: this.state.user, logOut: this.state.logOut,}}>
+        <React.Fragment>
+          <div className={css(styles.header)}>
+            <Notifications
+              listNotifications={this.listNotifications}
+              displayDrawer={this.state.displayDrawer}
+              handleDisplayDrawer={this.handleDisplayDrawer}
+              handleHideDrawer={this.handleHideDrawer}
+            />
+            <Header />
+            <main className={css(styles.main)}>
+              <hr className={css(styles.hr)}/>
+              {
+                this.state.user.isLoggedIn ?
+                  <BodySectionWithMarginBottom title='Course list'>
+                    <CourseList listCourses={this.listCourses} />
+                  </BodySectionWithMarginBottom>
+                  :
+                  <BodySectionWithMarginBottom title='Log in to continue'>
+                    <Login logIn={this.logIn} />
+                  </BodySectionWithMarginBottom>
+              }
+              <BodySection title='News from the School'>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Aperiam dicta iure natus perspiciatis? Fugiat laudantium, nam nisi quis suscipit ut veniam.
+                  Asperiores corporis doloribus esse laborum omnis? Exercitationem, incidunt voluptatem!<br/>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Aperiam dicta iure natus perspiciatis? Fugiat laudantium, nam nisi quis suscipit ut veniam.
+                  Asperiores corporis doloribus esse laborum omnis? Exercitationem, incidunt voluptatem!
+                </p>
+              </BodySection>
+            </main>
+            <Footer />
+          </div>
+        </React.Fragment>
+      </AppProvider>
     );
   }
 }

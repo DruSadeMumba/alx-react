@@ -14,7 +14,20 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.handleKeydown = this.handleKeydown.bind(this);
+    this.state = {
+      displayDrawer: false,
+    };
   }
+
+  handleDisplayDrawer = () => {
+    this.setState({displayDrawer: true});
+  };
+
+  handleHideDrawer = () => {
+    console.log("Close button has been clicked");
+    this.setState({displayDrawer: false});
+  };
+
   listNotifications = [
     { id: 1, type: "default", value: "New course available", },
     { id: 2, type: "urgent", value: "New resume available", },
@@ -44,23 +57,30 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className={css(styles.App)}>
-          <Notifications listNotifications={this.listNotifications} />
+        <div className={css(styles.header)}>
+          <Notifications
+            listNotifications={this.listNotifications}
+            displayDrawer={this.state.displayDrawer}
+            handleDisplayDrawer={this.handleDisplayDrawer}
+            handleHideDrawer={this.handleHideDrawer}
+          />
           <Header />
-          <hr className={css(styles.hr)}/>
-          {
-            this.props.isLoggedIn ?
-              <BodySectionWithMarginBottom title='Course list'>
-                <CourseList listCourses={this.listCourses} />
-              </BodySectionWithMarginBottom>
-            :
-              <BodySectionWithMarginBottom title='Log in to continue'>
-                <Login />
-              </BodySectionWithMarginBottom>
-          }
-          <BodySection title='News from the School'>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur earum eum id inventore minima pariatur provident quam rem sit tempora</p>
-          </BodySection>
+          <main className={css(styles.main)}>
+            <hr className={css(styles.hr)}/>
+            {
+              this.props.isLoggedIn ?
+                <BodySectionWithMarginBottom title='Course list'>
+                  <CourseList listCourses={this.listCourses} />
+                </BodySectionWithMarginBottom>
+                :
+                <BodySectionWithMarginBottom title='Log in to continue'>
+                  <Login />
+                </BodySectionWithMarginBottom>
+            }
+            <BodySection title='News from the School'>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur earum eum id inventore minima pariatur provident quam rem sit tempora</p>
+            </BodySection>
+          </main>
           <Footer />
         </div>
       </React.Fragment>
@@ -85,6 +105,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins, Roboto, sans-serif',
     webkitFontSmoothing: 'antialiased',
     mozOsxFontSmoothing: 'grayscale',
+  },
+  main: {
+    minHeight: '70vh',
   },
   hr: {
     border: 'none',

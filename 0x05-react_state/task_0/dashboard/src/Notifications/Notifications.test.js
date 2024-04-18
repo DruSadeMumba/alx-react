@@ -15,6 +15,7 @@ describe('Notifications component', () => {
   // Test when displayDrawer is false
   describe('when displayDrawer is false', () => {
     const wrapper = shallow(<Notifications />);
+    const handleDisplayDrawer = jest.fn();
 
     it('renders menuItem', () => {
       shallow(<menuItem />);
@@ -22,6 +23,12 @@ describe('Notifications component', () => {
 
     it('does not render div.Notifications', () => {
       expect(wrapper.find('Notifications').exists()).toBeFalsy();
+    });
+
+    it('clicking on menuItem calls handleDisplayDrawer', () => {
+      const wrapper = shallow(<Notifications handleDisplayDrawer={handleDisplayDrawer} />);
+      wrapper.find('.menuItem').simulate('click');
+      expect(handleDisplayDrawer).toHaveBeenCalled();
     });
   });
 
@@ -44,6 +51,7 @@ describe('Notifications component', () => {
 
   // Test when displayDrawer is true and listNotifications is not empty
   describe('when displayDrawer is true and list notification is not empty', () => {
+    const handleHideDrawer = jest.fn();
     let wrapper;
     let listItems;
     let textElement;
@@ -54,7 +62,7 @@ describe('Notifications component', () => {
     ];
 
     beforeEach(() => {
-      wrapper = shallow(<Notifications displayDrawer={true} listNotifications={listNotifications} />);
+      wrapper = shallow(<Notifications displayDrawer={true} listNotifications={listNotifications}/>);
       listItems = wrapper.find('NotificationItem');
       textElement = wrapper.find('p');
     });
@@ -84,14 +92,20 @@ describe('Notifications component', () => {
       spy.mockRestore();
     });
 
-    it('component does not rerender when updating the props with the same list', () => {
-      const shouldUpdate = wrapper.instance().shouldComponentUpdate({ listNotifications });
-      expect(shouldUpdate).toBeFalsy();
-    });
-
     it('component renders when updating the props with a longer list', () => {
       const shouldUpdate = wrapper.instance().shouldComponentUpdate({ listNotifications: listNotifications.concat({ id: 4, type: 'default', value: 'Notification 4' }) });
       expect(shouldUpdate).toBeTruthy();
+    });
+
+    it('component renders when updating the props with the same list', () => {
+      const shouldUpdate = wrapper.instance().shouldComponentUpdate({ listNotifications: listNotifications });
+      expect(shouldUpdate).toBeTruthy();
+    });
+
+    it('clicking on button calls handleHideDrawer', () => {
+      const wrapper = shallow(<Notifications displayDrawer={true} handleHideDrawer={handleHideDrawer} />);
+      wrapper.find('button').simulate('click');
+      expect(handleHideDrawer).toHaveBeenCalled();
     });
   });
 });

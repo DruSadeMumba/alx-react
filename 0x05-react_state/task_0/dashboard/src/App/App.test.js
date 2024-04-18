@@ -1,5 +1,5 @@
 import React from 'react';
-import {shallow, configure, mount} from 'enzyme';
+import {shallow, configure} from 'enzyme';
 import Adapter from "enzyme-adapter-react-16";
 import { JSDOM } from 'jsdom';
 import App from './App';
@@ -19,9 +19,6 @@ let container = null;
 
 global.window = window;
 global.document = window.document;
-global.navigator = {
-  userAgent: 'node.js'
-}
 
 beforeEach(() => {
   container = document.createElement('div');
@@ -76,6 +73,26 @@ describe('App component', () => {
 
     it('renders CourseList', () => {
       expect(wrapper.find('CourseList').exists()).toBeTruthy();
+    });
+  });
+
+  // Test displayDrawer
+  describe('displayDrawer', () => {
+    const wrapper = shallow(<App />);
+
+    it('verifies that the default state is false', () => {
+      expect(wrapper.state().displayDrawer).toEqual(false);
+    });
+
+    it('verifies that the displayDrawer state is updated to true when handleDisplayDrawer() is called', () => {
+      wrapper.instance().handleDisplayDrawer();
+      expect(wrapper.state().displayDrawer).toEqual(true);
+    });
+
+    it('verifies that the displayDrawer state is updated to false when handleHideDrawer() is called', () => {
+      wrapper.setState({ displayDrawer: true });
+      wrapper.instance().handleHideDrawer();
+      expect(wrapper.state().displayDrawer).toEqual(false);
     });
   });
 });

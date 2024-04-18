@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import closeIcon from '../Assets/close-icon.png';
 import NotificationItem from "./NotificationItem";
-import {arrayOf, bool} from "prop-types";
+import {arrayOf, bool, func} from "prop-types";
 import NotificationItemShape from "./NotificationItemShape";
 import {StyleSheet, css} from "aphrodite";
 
@@ -9,44 +9,42 @@ import {StyleSheet, css} from "aphrodite";
 class Notifications extends React.Component {
   constructor(props) {
     super(props);
-
     this.markAsRead = this.markAsRead.bind(this);
-    this.clsBtnClick = this.clsBtnClick.bind(this);
-    this.displayDrawer = this.props.displayDrawer;
-    this.listNotifications = this.props.listNotifications;
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return (
+      nextProps.listNotifications.length > this.props.listNotifications.length ||
+      nextProps.displayDrawer !== this.props.displayDrawer
+    );
   }
 
   markAsRead(id) {
     console.log(`Notification ${id} has been marked as read`);
   }
 
-  clsBtnClick = () => {
-    console.log("Close button has been clicked");
-  }
-
-  shouldComponentUpdate(nextProps) {
-    return nextProps.listNotifications.length > this.props.listNotifications.length;
-  }
-
   render() {
+    const { displayDrawer, listNotifications, handleDisplayDrawer, handleHideDrawer } = this.props;
     return (
       <Fragment>
         {
-          !this.displayDrawer &&
-          <div className={css(styles.menuItem)}>Your notifications</div>
+          !displayDrawer &&
+          <div className={css(styles.menuItem)}>
+            <div className="menuItem" onClick={handleDisplayDrawer}>Your notifications</div>
+          </div>
         }
         {
-          this.displayDrawer &&
+          displayDrawer &&
           <div className="Notifications">
             <div className={css(styles.overlay)} />
             <div className={css(styles.Notifications)}>
-              {!this.listNotifications || this.listNotifications.length === 0 ? (
+              {!listNotifications || listNotifications.length === 0 ? (
                 <p>No new notification for now</p>
               ) : (
                 <div>
                   <p>Here is the list of notifications</p>
                   <ul className={css(styles.notificationList)}>
-                    {this.listNotifications.map((notification) => (
+                    {listNotifications.map((notification) => (
                       <NotificationItem key={notification.id} type={notification.type} value={notification.value}
                                         html={notification.html} markAsRead={this.markAsRead} id={notification.id}/>
                     ))}
@@ -64,7 +62,7 @@ class Notifications extends React.Component {
                   zIndex: '1000',
                 }}
                 aria-label="Close"
-                onClick={this.clsBtnClick}
+                onClick={handleHideDrawer}
               >
                 <img src={closeIcon} alt="close"
                      style={{width: "15px", height: "15px",}}
@@ -86,6 +84,8 @@ Notifications.defaultProps = {
 Notifications.propTypes = {
   displayDrawer: bool,
   listNotifications: arrayOf(NotificationItemShape),
+  handleDisplayDrawer: func,
+  handleHideDrawer: func,
 };
 
 const bounceAnime = {
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
       animationName: [opacityAnime, bounceAnime],
       animationDuration: '1s, .5s',
       animationIterationCount: '3',
-    },
+    }
   },
 
   Notifications: {

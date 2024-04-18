@@ -35,11 +35,11 @@ class Login extends React.Component {
         <form className={css(styles.login)} onSubmit={this.handleLoginSubmit}>
           <div className={css(styles.email)}>
             <label htmlFor="email">Email: </label>
-            <input type="email" name="email" id="email" className={css(styles.input)} value={this.state.email} onChange={this.handleChangeEmail}/>
+            <input type="email" name="email" id="email" className={css(styles.input)} value={this.state.email} onChange={this.handleChangeEmail} autoComplete="true"/>
           </div>
           <div className={css(styles.password)}>
             <label htmlFor="password">Password: </label>
-            <input type="password" name="password" id="password" className={css(styles.input)} value={this.state.password} onChange={this.handleChangePassword}/>
+            <input type="password" name="password" id="password" className={css(styles.input)} value={this.state.password} onChange={this.handleChangePassword} autoComplete="true"/>
           </div>
           <input type="submit" className={css(styles.button)} value='OK' disabled={ !this.state.enableSubmit }/>
         </form>

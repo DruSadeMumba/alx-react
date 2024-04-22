@@ -14,6 +14,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.handleKeydown = this.handleKeydown.bind(this);
+    this.handleHideDrawer = this.handleHideDrawer.bind(this);
+    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.state = {
       displayDrawer: false,
     };
@@ -24,20 +26,9 @@ class App extends React.Component {
   };
 
   handleHideDrawer = () => {
-    console.log("Close button has been clicked");
     this.setState({displayDrawer: false});
   };
 
-  listNotifications = [
-    { id: 1, type: "default", value: "New course available", },
-    { id: 2, type: "urgent", value: "New resume available", },
-    { id: 3, type: "urgent", html: {__html: getLatestNotification()}, },
-  ];
-  listCourses = [
-    { id: 1, name: "ES6", credit: 60, },
-    { id: 2, name: "Webpack", credit: 20, },
-    { id: 3, name: "React", credit: 40, },
-  ];
   handleKeydown = (event) => {
     if (event.ctrlKey && event.key === "h") {
       event.preventDefault();
@@ -54,6 +45,17 @@ class App extends React.Component {
     document.removeEventListener("keydown", this.handleKeydown);
   }
 
+  listNotifications = [
+    { id: 1, type: "default", value: "New course available", },
+    { id: 2, type: "urgent", value: "New resume available", },
+    { id: 3, type: "urgent", html: {__html: getLatestNotification()}, },
+  ];
+  listCourses = [
+    { id: 1, name: "ES6", credit: 60, },
+    { id: 2, name: "Webpack", credit: 20, },
+    { id: 3, name: "React", credit: 40, },
+  ];
+
   render() {
     return (
       <React.Fragment>
@@ -65,8 +67,8 @@ class App extends React.Component {
             handleHideDrawer={this.handleHideDrawer}
           />
           <Header />
+          <hr className={css(styles.hr)}/>
           <main className={css(styles.main)}>
-            <hr className={css(styles.hr)}/>
             {
               this.props.isLoggedIn ?
                 <BodySectionWithMarginBottom title='Course list'>
@@ -88,16 +90,6 @@ class App extends React.Component {
   }
 }
 
-App.defaultProps = {
-  isLoggedIn: false,
-  logOut: () => {},
-};
-
-App.propTypes = {
-  isLoggedIn: bool,
-  logOut: func,
-};
-
 const styles = StyleSheet.create({
   App: {
     margin: 0,
@@ -116,5 +108,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#df344b',
   }
 });
+
+App.defaultProps = {
+  isLoggedIn: false,
+  logOut: () => {},
+};
+
+App.propTypes = {
+  isLoggedIn: bool,
+  logOut: func,
+};
 
 export default App;

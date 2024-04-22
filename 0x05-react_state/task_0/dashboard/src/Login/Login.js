@@ -8,11 +8,11 @@ return (
     <div className={css(styles.login)}>
       <div className={css(styles.email)}>
         <label htmlFor="email">Email: </label>
-        <input type="email" name="email" id="email" className={css(styles.input)} />
+        <input type="email" name="email" id="email" className={css(styles.input)} autoComplete="true"/>
       </div>
       <div className={css(styles.password)}>
         <label htmlFor="password">Password: </label>
-        <input type="password" name="password" id="password" className={css(styles.input)}/>
+        <input type="password" name="password" id="password" className={css(styles.input)} autoComplete="true"/>
       </div>
       <button type="submit" className={css(styles.button)}>OK</button>
     </div>

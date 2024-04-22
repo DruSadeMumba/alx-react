@@ -15,13 +15,13 @@ function CourseList({ listCourses }) {
     return (
       <table id="CourseList" className={css(styles.CourseList)}>
         <thead>
-          <CourseListRow textFirstCell="Available courses" isHeader={true}/>
-          <CourseListRow textFirstCell="Course name" textSecondCell="Credit" isHeader={true}/>
+          <CourseListRow textSecondCell="Available courses" isHeader={true}/>
+          <CourseListRow textSecondCell="Course name" textThirdCell="Credit" isHeader={true}/>
         </thead>
         <tbody>
           {
             listCourses.map(course => {
-              return (<CourseListRow key={course.id} textFirstCell={course.name} textSecondCell={course.credit} isHeader={false}/>);
+              return (<CourseListRow key={course.id} textSecondCell={course.name} textThirdCell={course.credit} isHeader={false}/>);
             })
           }
         </tbody>

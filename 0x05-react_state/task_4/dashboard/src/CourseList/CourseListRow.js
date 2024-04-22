@@ -2,40 +2,50 @@ import React from "react";
 import {bool, number, oneOfType, string} from "prop-types";
 import {StyleSheet, css} from "aphrodite";
 
-function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
+function CourseListRow({ isHeader, textSecondCell, textThirdCell }) {
+  const [rowCheck, setRowCheck] = React.useState(false);
+
   const rowStyle = {
-    backgroundColor: isHeader ? "#deb5b545" : "#f5f5f5ab"
+    backgroundColor: isHeader ? "#deb5b545" : (rowCheck ? "#e6e4e4" : "#f5f5f5ab")
+  };
+
+  const handleRowCheck = () => {
+    setRowCheck(!rowCheck);
   };
 
   return (
     <tr style={rowStyle}>
       {isHeader ? (
         <>
-          {textSecondCell ? (
+          {textThirdCell ? (
             <>
+              <th className={css(styles.checkbox)}></th>
               <th className={css(styles.alignLeft)}>
                 <div className={css(styles.CourseListRow)}>
-                  {textFirstCell}
+                  {textSecondCell}
                 </div>
               </th>
               <th className={css(styles.alignLeft)}>
                 <div className={css(styles.CourseListRow)}>
-                  {textSecondCell}
+                  {textThirdCell}
                 </div>
               </th>
             </>
           ) : (
             <th colSpan="2">
               <div className={css(styles.CourseListRow)}>
-                {textFirstCell}
+                {textSecondCell}
               </div>
             </th>
           )}
         </>
       ) : (
         <>
-          <td className={css(styles.td)}>{textFirstCell}</td>
+          <td className={css(styles.checkbox)}>
+            <input type="checkbox" checked={rowCheck} onChange={handleRowCheck} />
+          </td>
           <td className={css(styles.td)}>{textSecondCell}</td>
+          <td className={css(styles.td)}>{textThirdCell}</td>
         </>
       )}
     </tr>
@@ -44,13 +54,13 @@ function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
 
 CourseListRow.propTypes = {
   isHeader: bool,
-  textFirstCell: string.isRequired,
-  textSecondCell: oneOfType([string, number,]),
+  textSecondCell: string.isRequired,
+  textThirdCell: oneOfType([string, number,]),
 };
 
 CourseListRow.defaultProps = {
   isHeader: false,
-  textSecondCell: null,
+  textThirdCell: null,
 };
 
 const styles = StyleSheet.create({
@@ -66,7 +76,8 @@ const styles = StyleSheet.create({
 
   td: {
     padding: '0.25rem 0.5rem',
-  }
+  },
+
 });
 
 export default CourseListRow;

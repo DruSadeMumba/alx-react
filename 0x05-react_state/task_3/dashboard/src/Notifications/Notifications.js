@@ -7,24 +7,8 @@ import {StyleSheet, css} from "aphrodite";
 
 
 class Notifications extends React.Component {
-  constructor(props) {
-    super(props);
-    this.markAsRead = this.markAsRead.bind(this);
-  }
-
-  shouldComponentUpdate(nextProps) {
-    return (
-      nextProps.listNotifications.length > this.props.listNotifications.length ||
-      nextProps.displayDrawer !== this.props.displayDrawer
-    );
-  }
-
-  markAsRead(id) {
-    console.log(`Notification ${id} has been marked as read`);
-  }
-
   render() {
-    const { displayDrawer, listNotifications, handleDisplayDrawer, handleHideDrawer } = this.props;
+    const { displayDrawer, listNotifications, handleDisplayDrawer, handleHideDrawer, markNotificationAsRead } = this.props;
     return (
       <Fragment>
         {
@@ -46,7 +30,7 @@ class Notifications extends React.Component {
                   <ul className={css(styles.notificationList)}>
                     {listNotifications.map((notification) => (
                       <NotificationItem key={notification.id} type={notification.type} value={notification.value}
-                                        html={notification.html} markAsRead={this.markAsRead} id={notification.id}/>
+                                        html={notification.html} markAsRead={() => markNotificationAsRead(notification.id)} id={notification.id}/>
                     ))}
                   </ul>
                 </div>
@@ -79,6 +63,7 @@ class Notifications extends React.Component {
 Notifications.defaultProps = {
   displayDrawer: false,
   listNotifications: [],
+  markNotificationAsRead: () => {},
 };
 
 Notifications.propTypes = {
@@ -86,6 +71,7 @@ Notifications.propTypes = {
   listNotifications: arrayOf(NotificationItemShape),
   handleDisplayDrawer: func,
   handleHideDrawer: func,
+  markNotificationAsRead: func,
 };
 
 const bounceAnime = {

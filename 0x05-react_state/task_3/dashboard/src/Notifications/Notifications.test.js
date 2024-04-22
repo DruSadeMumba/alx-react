@@ -55,6 +55,7 @@ describe('Notifications component', () => {
     let wrapper;
     let listItems;
     let textElement;
+    let markedAsRead;
     let listNotifications = [
       { id: 1, type: 'default', value: 'Notification 1' },
       { id: 2, type: 'urgent', value: 'Notification 2' },
@@ -62,7 +63,15 @@ describe('Notifications component', () => {
     ];
 
     beforeEach(() => {
-      wrapper = shallow(<Notifications displayDrawer={true} listNotifications={listNotifications}/>);
+      markedAsRead = jest.fn();
+      wrapper = shallow(
+        <Notifications
+          displayDrawer={true}
+          listNotifications={listNotifications}
+          handleHideDrawer={handleHideDrawer}
+          markNotificationAsRead={markedAsRead}
+        />
+      );
       listItems = wrapper.find('NotificationItem');
       textElement = wrapper.find('p');
     });
@@ -83,23 +92,10 @@ describe('Notifications component', () => {
       expect(textElement.text()).toEqual('Here is the list of notifications');
     });
 
-    it('calls console.log when markAsRead is called', () => {
-      const instance = wrapper.instance();
-      const spy = jest.spyOn(console, 'log');
-
-      instance.markAsRead(1);
-      expect(spy).toHaveBeenCalledWith('Notification 1 has been marked as read');
-      spy.mockRestore();
-    });
-
-    it('component renders when updating the props with a longer list', () => {
-      const shouldUpdate = wrapper.instance().shouldComponentUpdate({ listNotifications: listNotifications.concat({ id: 4, type: 'default', value: 'Notification 4' }) });
-      expect(shouldUpdate).toBeTruthy();
-    });
-
-    it('component renders when updating the props with the same list', () => {
-      const shouldUpdate = wrapper.instance().shouldComponentUpdate({ listNotifications: listNotifications });
-      expect(shouldUpdate).toBeTruthy();
+    it('calls markNotificationAsRead when NotificationItem calls markAsRead', () => {
+      const notificationId = 1;
+      listItems.first().props().markAsRead(notificationId);
+      expect(markedAsRead).toHaveBeenCalledWith(notificationId);
     });
 
     it('clicking on button calls handleHideDrawer', () => {

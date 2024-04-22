@@ -1,14 +1,14 @@
 import React from 'react';
-import {shallow, configure} from 'enzyme';
+import {shallow, configure, mount} from 'enzyme';
 import Adapter from "enzyme-adapter-react-16";
 import { JSDOM } from 'jsdom';
 import App from './App';
 import Notifications from "../Notifications/Notifications";
-import Header from "../Header/Header";
 import Login from "../Login/Login";
 import Footer from "../Footer/Footer";
 import {unmountComponentAtNode} from "react-dom";
 import {StyleSheetTestUtils} from "aphrodite";
+import Header from "../Header/Header";
 
 configure({ adapter: new Adapter() });
 StyleSheetTestUtils.suppressStyleInjection();
@@ -32,6 +32,13 @@ afterEach(() => {
 });
 
 describe('App component', () => {
+  const wrapper = shallow(<App />);
+  const notifications = [
+    { id: 1, type: 'default', value: 'New course available' },
+    { id: 2, type: 'urgent', value: 'New resume available' },
+    { id: 3, type: 'urgent', value: 'New notification' },
+  ];
+
   it('renders without crashing', () => {
     shallow(<App />);
   });
@@ -40,18 +47,30 @@ describe('App component', () => {
     shallow(<Notifications />);
   });
 
-  it('renders Header', () => {
-    shallow(<Header />);
-  });
-
   it('renders Footer', () => {
     shallow(<Footer />);
   });
 
+  it('renders Header', () => {
+    expect(wrapper.contains(<Header />)).toBeTruthy();
+  });
+
+  it('marks a notification as read when markNotificationAsRead is called', () => {
+wrapper.setState({ listNotifications: notifications });
+    wrapper.instance().markNotificationAsRead(1);
+    expect(wrapper.state().listNotifications.some((notification) => notification.value === 'New course available')).toBeFalsy();
+  });
+
   // Test when isLoggedIn is false
   describe('when isLoggedIn is false', () => {
-    let logged = { isLoggedIn: false };
-    const wrapper = shallow(<App {...logged} />);
+    let wrapper = shallow(<App />);
+    wrapper.setState({
+      user: {
+        email: '',
+        password: '',
+        isLoggedIn: false,
+      },
+    });
 
     it('renders Login', () => {
       shallow(<Login />);
@@ -64,8 +83,15 @@ describe('App component', () => {
 
   // Test when isLoggedIn is true
   describe('when isLoggedIn is true', () => {
-    let logged = { isLoggedIn: true };
-    const wrapper = shallow(<App {...logged} />);
+    const wrapper = mount(<App />);
+    wrapper.setState({
+      user: {
+        email: 'abc@123.com',
+        password: '%lePass123',
+        isLoggedIn: true,
+      },
+      logOut: () => {},
+    });
 
     it('does not render Login', () => {
       expect(wrapper.find('Login').exists()).toBeFalsy();

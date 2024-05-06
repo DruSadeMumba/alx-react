@@ -4,3 +4,5 @@ export const NotificationTypeFilters = {
   DEFAULT: 'DEFAULT',
   URGENT: 'URGENT',
 };
+
+export const FETCH_NOTIFICATIONS_SUCCESS = 'FETCH_NOTIFICATIONS_SUCCESS';

@@ -1,0 +1,31 @@
+import React from 'react';
+import NotificationItem from './NotificationItem';
+import { shallow, configure } from 'enzyme';
+import Adapter from "enzyme-adapter-react-16";
+import {StyleSheetTestUtils} from "aphrodite";
+
+configure({ adapter: new Adapter() });
+StyleSheetTestUtils.suppressStyleInjection();
+
+describe('NotificationItem component', () => {
+  it('renders without crashing', () => {
+    shallow(<NotificationItem />);
+  });
+
+  it('renders with correct value prop', () => {
+    const wrapper = shallow(<NotificationItem value="test" />);
+    expect(wrapper.text()).toContain('test');
+  });
+
+  it('renders with correct html prop', () => {
+    const wrapper = shallow(<NotificationItem html={{ __html: '<p>test</p>' }} />);
+    expect(wrapper.html()).toContain('<p>test</p>');
+  });
+
+  it('calls markAsRead when clicked', () => {
+    const markAsReadSpy = jest.fn();
+    const wrapper = shallow(<NotificationItem markAsRead={markAsReadSpy} id={1} />);
+    wrapper.find('.NotificationItem').simulate('click');
+    expect(markAsReadSpy).toHaveBeenCalledWith(1);
+  });
+});

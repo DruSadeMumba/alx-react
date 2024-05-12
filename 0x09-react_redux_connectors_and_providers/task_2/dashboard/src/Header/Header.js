@@ -12,8 +12,8 @@ class Header extends React.Component {
         <h1 className={css(styles.H1)}>School dashboard</h1>
         {
           user.isLoggedIn &&
-          <section id="logoutSection">
-            Welcome {user.email} <a href="" onClick={() => logOut}>(logout)</a>
+          <section id="logoutSection" className={css(styles["logout"])}>
+            Welcome {user.email} <a href="" onClick={() => logOut} className={css(styles.link)}> (logout)</a>
           </section>
         }
       </header>
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     fontSize: 'calc(1rem + 0.5vw)',
     color: '#df344b',
     '@media (max-width: 900px)': {
-      fontSize: 'calc(.5rem + .5vw)'
+      fontSize: 'calc(1rem + .5vw)'
     },
   },
   AppLogo: {
@@ -39,6 +39,14 @@ const styles = StyleSheet.create({
   },
   H1: {
     paddingTop: '6vh',
+  },
+  "logout": {
+    color: '#6c6969',
+  },
+  link: {
+    color: '#df344b',
+    textDecoration: 'none',
+    cursor: 'pointer'
   }
 });
 

@@ -12,9 +12,9 @@ import { StyleSheet, css } from 'aphrodite';
 import AppContext from "./AppContext";
 import { connect } from 'react-redux'
 
-const mapStateToProps = (state) => {
+export const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.isLoggedIn,
+    isLoggedIn: state.get('isUserLoggedIn')
   };
 };
 

@@ -14,7 +14,8 @@ import { connect } from 'react-redux'
 
 export const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.get('isUserLoggedIn')
+    isLoggedIn: state.get('isUserLoggedIn'),
+    displayDrawer: state.get('isNotificationDrawerVisible')
   };
 };
 
@@ -83,13 +84,14 @@ class App extends React.Component {
   }
 
   render() {
+    const { displayDrawer } = this.props;
     return (
       <AppContext.Provider value={{user: this.state.user, logOut: this.state.logOut,}}>
         <React.Fragment>
           <div className={css(styles.header)}>
             <Notifications
               listNotifications={this.state.listNotifications}
-              displayDrawer={this.state.displayDrawer}
+              displayDrawer={displayDrawer}
               handleDisplayDrawer={this.handleDisplayDrawer}
               handleHideDrawer={this.handleHideDrawer}
               markNotificationAsRead={this.markNotificationAsRead}

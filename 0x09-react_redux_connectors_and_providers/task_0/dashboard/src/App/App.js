@@ -4,12 +4,19 @@ import Header from "../Header/Header";
 import Login from "../Login/Login";
 import Footer from "../Footer/Footer";
 import CourseList from "../CourseList/CourseList";
-import {getLatestNotification} from "../utils/utils";
-import {bool, func} from "prop-types";
+import { getLatestNotification } from "../utils/utils";
+import { bool, func } from "prop-types";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import BodySection from "../BodySection/BodySection";
-import {StyleSheet, css} from 'aphrodite';
+import { StyleSheet, css } from 'aphrodite';
 import AppContext from "./AppContext";
+import { connect } from 'react-redux'
+
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.isLoggedIn,
+  };
+};
 
 class App extends React.Component {
   constructor(props) {
@@ -150,4 +157,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default connect(mapStateToProps)(App);

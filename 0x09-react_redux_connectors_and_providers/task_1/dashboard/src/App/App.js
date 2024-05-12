@@ -11,6 +11,7 @@ import BodySection from "../BodySection/BodySection";
 import { StyleSheet, css } from 'aphrodite';
 import AppContext from "./AppContext";
 import { connect } from 'react-redux'
+import { displayNotificationDrawer, hideNotificationDrawer } from '../actions/uiActionCreators';
 
 export const mapStateToProps = (state) => {
   return {
@@ -19,39 +20,35 @@ export const mapStateToProps = (state) => {
   };
 };
 
+const mapDispatchToProps = {
+  displayNotificationDrawer,
+  hideNotificationDrawer,
+};
+
+const listNotifications = [
+  { id: 1, type: "default", value: "New course available", },
+  { id: 2, type: "urgent", value: "New resume available", },
+  { id: 3, type: "urgent", html: {__html: getLatestNotification()}, },
+];
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.handleKeydown = this.handleKeydown.bind(this);
-    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
-    this.handleHideDrawer = this.handleHideDrawer.bind(this);
     this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
     this.logIn = this.logIn.bind(this);
     this.logOut = this.logOut.bind(this);
     this.state = {
-      displayDrawer: false,
       user: {email: '', password: '', isLoggedIn: false,},
       logOut: this.logOut,
-      listNotifications: [
-        { id: 1, type: "default", value: "New course available", },
-        { id: 2, type: "urgent", value: "New resume available", },
-        { id: 3, type: "urgent", html: {__html: getLatestNotification()}, },
-      ],
+      listNotifications: listNotifications,
     };
   }
-
-  handleDisplayDrawer = () => {
-    this.setState({displayDrawer: true});
-  };
-
-  handleHideDrawer = () => {
-    console.log("Close button has been clicked");
-    this.setState({displayDrawer: false});
-  };
 
   logIn = (email, password) => {
     this.setState({user: {email: email, password: password, isLoggedIn: true}});
   };
+
   logOut = () => {
     this.setState({user: {email: '', password: '', isLoggedIn: false,},});
   };
@@ -61,6 +58,7 @@ class App extends React.Component {
     { id: 2, name: "Webpack", credit: 20, },
     { id: 3, name: "React", credit: 40, },
   ];
+
   handleKeydown = (event) => {
     if (event.ctrlKey && event.key === "h") {
       event.preventDefault();
@@ -72,7 +70,6 @@ class App extends React.Component {
   markNotificationAsRead = (id) => {
     let notList = this.state.listNotifications.filter((notification) => notification.id !== id);
     this.setState({ listNotifications: notList });
-    console.log(`Notification ${id} has been marked as read and removed`);
   };
 
   componentDidMount() {
@@ -84,16 +81,17 @@ class App extends React.Component {
   }
 
   render() {
-    const { displayDrawer } = this.props;
+    const { displayDrawer, displayNotificationDrawer, hideNotificationDrawer } = this.props;
+    const { listNotifications } = this.state;
     return (
       <AppContext.Provider value={{user: this.state.user, logOut: this.state.logOut,}}>
         <React.Fragment>
           <div className={css(styles.header)}>
             <Notifications
-              listNotifications={this.state.listNotifications}
+              listNotifications={listNotifications}
               displayDrawer={displayDrawer}
-              handleDisplayDrawer={this.handleDisplayDrawer}
-              handleHideDrawer={this.handleHideDrawer}
+              handleDisplayDrawer={displayNotificationDrawer}
+              handleHideDrawer={hideNotificationDrawer}
               markNotificationAsRead={this.markNotificationAsRead}
             />
             <Header />
@@ -131,11 +129,15 @@ class App extends React.Component {
 App.defaultProps = {
   isLoggedIn: false,
   logOut: () => {},
+  displayNotificationDrawer: () => {},
+  hideNotificationDrawer: () => {},
 };
 
 App.propTypes = {
   isLoggedIn: bool,
   logOut: func,
+  displayNotificationDrawer: func,
+  hideNotificationDrawer: func,
 };
 
 const styles = StyleSheet.create({
@@ -159,4 +161,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   link: {
     color: '#df344b',
     textDecoration: 'none',
+    cursor: 'pointer'
   }
 });
 

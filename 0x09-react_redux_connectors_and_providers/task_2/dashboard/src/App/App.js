@@ -11,7 +11,7 @@ import BodySection from "../BodySection/BodySection";
 import { StyleSheet, css } from 'aphrodite';
 import AppContext from "./AppContext";
 import { connect } from 'react-redux'
-import { displayNotificationDrawer, hideNotificationDrawer } from '../actions/uiActionCreators';
+import { displayNotificationDrawer, hideNotificationDrawer, loginRequest, logout } from '../actions/uiActionCreators';
 
 export const mapStateToProps = (state) => {
   return {
@@ -23,6 +23,8 @@ export const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   displayNotificationDrawer,
   hideNotificationDrawer,
+  logIn: loginRequest,
+  logout
 };
 
 const listNotifications = [
@@ -31,33 +33,22 @@ const listNotifications = [
   { id: 3, type: "urgent", html: {__html: getLatestNotification()}, },
 ];
 
+const listCourses = [
+  { id: 1, name: "ES6", credit: 60, },
+  { id: 2, name: "Webpack", credit: 20, },
+  { id: 3, name: "React", credit: 40, },
+];
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.handleKeydown = this.handleKeydown.bind(this);
     this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
-    this.logIn = this.logIn.bind(this);
-    this.logOut = this.logOut.bind(this);
     this.state = {
       user: {email: '', password: '', isLoggedIn: false,},
-      logOut: this.logOut,
       listNotifications: listNotifications,
     };
   }
-
-  logIn = (email, password) => {
-    this.setState({user: {email: email, password: password, isLoggedIn: true}});
-  };
-
-  logOut = () => {
-    this.setState({user: {email: '', password: '', isLoggedIn: false,},});
-  };
-
-  listCourses = [
-    { id: 1, name: "ES6", credit: 60, },
-    { id: 2, name: "Webpack", credit: 20, },
-    { id: 3, name: "React", credit: 40, },
-  ];
 
   handleKeydown = (event) => {
     if (event.ctrlKey && event.key === "h") {
@@ -81,10 +72,10 @@ class App extends React.Component {
   }
 
   render() {
-    const { displayDrawer, displayNotificationDrawer, hideNotificationDrawer } = this.props;
-    const { listNotifications } = this.state;
+    const { displayDrawer, displayNotificationDrawer, hideNotificationDrawer, isLoggedIn, logIn } = this.props;
+    const {user, logOut} = this.state;
     return (
-      <AppContext.Provider value={{user: this.state.user, logOut: this.state.logOut,}}>
+      <AppContext.Provider value={{user, logOut,}}>
         <React.Fragment>
           <div className={css(styles.header)}>
             <Notifications
@@ -98,13 +89,13 @@ class App extends React.Component {
             <hr className={css(styles.hr)}/>
             <main className={css(styles.main)}>
               {
-                this.state.user.isLoggedIn ?
+                isLoggedIn ?
                   <BodySectionWithMarginBottom title='Course list'>
-                    <CourseList listCourses={this.listCourses} />
+                    <CourseList listCourses={listCourses} />
                   </BodySectionWithMarginBottom>
                   :
                   <BodySectionWithMarginBottom title='Log in to continue'>
-                    <Login logIn={this.logIn} />
+                    <Login logIn={logIn} />
                   </BodySectionWithMarginBottom>
               }
               <BodySection title='News from the School'>
@@ -128,6 +119,7 @@ class App extends React.Component {
 
 App.defaultProps = {
   isLoggedIn: false,
+  logIn: () => {},
   logOut: () => {},
   displayNotificationDrawer: () => {},
   hideNotificationDrawer: () => {},
@@ -135,6 +127,7 @@ App.defaultProps = {
 
 App.propTypes = {
   isLoggedIn: bool,
+  logIn: func,
   logOut: func,
   displayNotificationDrawer: func,
   hideNotificationDrawer: func,

@@ -10,7 +10,7 @@ export const mapStateToProps = (state) => {
   };
 };
 
-function Footer({user}) {
+export function Footer({user}) {
   return (
     <footer className={css(styles["App-footer"])}>
       <hr className={css(styles.hr)}/>

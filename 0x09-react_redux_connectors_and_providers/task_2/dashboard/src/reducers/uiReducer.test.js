@@ -1,5 +1,5 @@
 import { uiReducer, initialState } from './uiReducer';
-import { DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from '../actions/uiActionTypes';
+import { DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER, LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from '../actions/uiActionTypes';
 
 describe('uiReducer', () => {
   it('should return the initial state', () => {
@@ -16,6 +16,12 @@ describe('uiReducer', () => {
   it('should handle HIDE_NOTIFICATION_DRAWER', () => {
     const action = { type: HIDE_NOTIFICATION_DRAWER };
     expect(uiReducer(undefined, action).toJS()).toEqual(initialState);
+  });
+
+  it('should handle LOGIN', () => {
+    const User = { email: 'abc@123.com', password: 'le$Pass123' };
+    const action = { type: LOGIN, user: User};
+    expect(uiReducer(undefined, action).toJS()).toEqual({ ...initialState, user: User});
   });
 
   it('should handle LOGIN_FAILURE', () => {

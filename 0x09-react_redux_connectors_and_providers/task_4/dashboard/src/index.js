@@ -4,10 +4,10 @@ import App from "./App/App";
 import { applyMiddleware, createStore, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { thunk } from 'redux-thunk';
-import { rootReducer, initialState } from './reducers/rootReducer';
+import { rootReducer } from './reducers/rootReducer';
 
 const composeWithDevTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(thunk)));
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <React.StrictMode>

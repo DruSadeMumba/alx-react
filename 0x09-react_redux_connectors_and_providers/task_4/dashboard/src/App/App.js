@@ -14,9 +14,12 @@ import { connect } from 'react-redux'
 import { displayNotificationDrawer, hideNotificationDrawer, loginRequest, logout } from '../actions/uiActionCreators';
 
 export const mapStateToProps = (state) => {
+  const isUserLoggedIn = state && typeof state.get === 'function' ? state.get('isUserLoggedIn') : state.isUserLoggedIn;
+  const isNotificationDrawerVisible = state && typeof state.get === 'function' ? state.get('isNotificationDrawerVisible') : state.isNotificationDrawerVisible;
+
   return {
-    isLoggedIn: state.get('isUserLoggedIn'),
-    displayDrawer: state.get('isNotificationDrawerVisible')
+    isLoggedIn: isUserLoggedIn,
+    displayDrawer: isNotificationDrawerVisible
   };
 };
 
@@ -24,7 +27,7 @@ const mapDispatchToProps = {
   displayNotificationDrawer,
   hideNotificationDrawer,
   logIn: loginRequest,
-  logout
+  logout,
 };
 
 const listNotifications = [

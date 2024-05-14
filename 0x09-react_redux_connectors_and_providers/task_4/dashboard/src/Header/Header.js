@@ -8,8 +8,9 @@ import { logout } from '../actions/uiActionCreators';
 
 
 const mapStateToProps = (state) => {
+  const user = state && typeof state.get === 'function' ? state.get('user') : state.user;
   return {
-    user: state.get('user'),
+    user: user,
   };
 };
 

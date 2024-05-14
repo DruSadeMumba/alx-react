@@ -73,7 +73,7 @@ class App extends React.Component {
 
   render() {
     const { displayDrawer, displayNotificationDrawer, hideNotificationDrawer, isLoggedIn, logIn } = this.props;
-    const {user, logOut} = this.state;
+    const {user, logOut, listNotifications} = this.state;
     return (
       <AppContext.Provider value={{user, logOut,}}>
         <React.Fragment>

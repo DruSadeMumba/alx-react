@@ -26,22 +26,12 @@ export const hideNotificationDrawer = () => ({
 });
 
 export const loginRequest = (email, password) => (dispatch) => {
-  boundLogin(email, password);
-  let url = '../../dist/login-success.json';
-  fetch(url)
+  dispatch(login(email, password));
+  fetch('login-success.json')
     .then(res => {
-      if (res.ok) {
-        dispatch(loginSuccess());
-      } else {
-        dispatch(loginFailure());
-      }
+      dispatch(res.ok? loginSuccess() : loginFailure());
     })
     .catch(() => {
       dispatch(loginFailure());
     });
 };
-
-export const boundLogin = (email, password) => dispatch(login(email, password));
-export const boundLogout = () => dispatch(logout);
-export const boundDisplayNotificationDrawer = () => dispatch(displayNotificationDrawer);
-export const boundHideNotificationDrawer = () => dispatch(hideNotificationDrawer);

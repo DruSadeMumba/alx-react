@@ -14,8 +14,8 @@ import { connect } from 'react-redux'
 import { displayNotificationDrawer, hideNotificationDrawer, loginRequest, logout } from '../actions/uiActionCreators';
 
 export const mapStateToProps = (state) => {
-  const isUserLoggedIn = state && typeof state.get === 'function' ? state.get('isUserLoggedIn') : state.isUserLoggedIn;
-  const isNotificationDrawerVisible = state && typeof state.get === 'function' ? state.get('isNotificationDrawerVisible') : state.isNotificationDrawerVisible;
+  const isUserLoggedIn = state && typeof state.get === 'function' ? state.get('isUserLoggedIn') : state.ui.get('isUserLoggedIn');
+  const isNotificationDrawerVisible = state && typeof state.get === 'function' ? state.get('isNotificationDrawerVisible') : state.ui.get('isNotificationDrawerVisible');
 
   return {
     isLoggedIn: isUserLoggedIn,

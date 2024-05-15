@@ -4,7 +4,6 @@ import Header from "../Header/Header";
 import Login from "../Login/Login";
 import Footer from "../Footer/Footer";
 import CourseList from "../CourseList/CourseList";
-import { getLatestNotification } from "../utils/utils";
 import { bool, func } from "prop-types";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import BodySection from "../BodySection/BodySection";
@@ -30,12 +29,6 @@ const mapDispatchToProps = {
   logout,
 };
 
-const listNotifications = [
-  { id: 1, type: "default", value: "New course available", },
-  { id: 2, type: "urgent", value: "New resume available", },
-  { id: 3, type: "urgent", html: {__html: getLatestNotification()}, },
-];
-
 const listCourses = [
   { id: 1, name: "ES6", credit: 60, },
   { id: 2, name: "Webpack", credit: 20, },
@@ -46,10 +39,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.handleKeydown = this.handleKeydown.bind(this);
-    this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
     this.state = {
       user: {email: '', password: '', isLoggedIn: false,},
-      listNotifications: listNotifications,
     };
   }
 
@@ -59,11 +50,6 @@ class App extends React.Component {
       alert("Logging you out");
       this.props.logOut();
     }
-  };
-
-  markNotificationAsRead = (id) => {
-    let notList = this.state.listNotifications.filter((notification) => notification.id !== id);
-    this.setState({ listNotifications: notList });
   };
 
   componentDidMount() {
@@ -76,17 +62,15 @@ class App extends React.Component {
 
   render() {
     const { displayDrawer, displayNotificationDrawer, hideNotificationDrawer, isLoggedIn, logIn } = this.props;
-    const {user, logOut, listNotifications} = this.state;
+    const {user, logOut} = this.state;
     return (
       <AppContext.Provider value={{user, logOut,}}>
         <React.Fragment>
           <div className={css(styles.header)}>
             <Notifications
-              listNotifications={listNotifications}
               displayDrawer={displayDrawer}
               handleDisplayDrawer={displayNotificationDrawer}
               handleHideDrawer={hideNotificationDrawer}
-              markNotificationAsRead={this.markNotificationAsRead}
             />
             <Header />
             <hr className={css(styles.hr)}/>
@@ -122,6 +106,7 @@ class App extends React.Component {
 
 App.defaultProps = {
   isLoggedIn: false,
+  displayDrawer: false,
   logIn: () => {},
   logOut: () => {},
   displayNotificationDrawer: () => {},
@@ -130,6 +115,7 @@ App.defaultProps = {
 
 App.propTypes = {
   isLoggedIn: bool,
+  displayDrawer: bool,
   logIn: func,
   logOut: func,
   displayNotificationDrawer: func,

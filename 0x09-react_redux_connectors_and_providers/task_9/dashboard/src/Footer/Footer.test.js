@@ -1,28 +1,19 @@
 import React from 'react';
-import {configure, mount} from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import Footer from './Footer';
-import {StyleSheetTestUtils} from "aphrodite";
+import { Footer } from './Footer';
+import { StyleSheetTestUtils } from "aphrodite";
 import AppContext from '../App/AppContext';
-import {JSDOM} from "jsdom";
 
 configure({ adapter: new Adapter() });
-const { document } = new JSDOM('<!doctype html><html lang=""><body></body></html>').window;
-global.document = document;
-global.window = document.defaultView;
 
 describe('Footer component', () => {
-  let wrapper;
   const userDets = {
     user: {email: '', password: '', isLoggedIn: false,},
     logOut: () => {},
   };
+  let wrapper = shallow(<Footer user={userDets}/>);
   beforeEach(() => {
-    wrapper = mount(
-      <AppContext.Provider value={userDets}>
-        <Footer />
-      </AppContext.Provider>
-    );
     StyleSheetTestUtils.suppressStyleInjection();
   });
 
@@ -36,8 +27,8 @@ describe('Footer component', () => {
     });
 
     it('renders the text Copyright', () => {
-      const text = wrapper.find('p').text();
-      expect(text).toEqual('Copyright 2024 - Holberton School main dashboards');
+      const text = wrapper.find('em').text();
+      expect(text).toContain('Copyright 2024 - Holberton School main dashboards');
     });
   });
 

@@ -1,14 +1,14 @@
 import React, {Fragment} from 'react';
 import closeIcon from '../Assets/close-icon.png';
 import NotificationItem from "./NotificationItem";
-import { bool, func, object } from 'prop-types';
+import { array, bool, func } from 'prop-types';
 import { StyleSheet, css } from "aphrodite";
 import { fetchNotifications } from '../actions/notificationActionCreators';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
   return {
-    listNotifications: state.notifications.get('messages')
+    listNotifications: state.notifications.get('messages'),
   }
 };
 
@@ -44,7 +44,7 @@ class Notifications extends React.Component {
                   <p>Here is the list of notifications</p>
                   <ul className={css(styles.notificationList)}>
                     {listNotifications.map((notification) => (
-                      <NotificationItem key={notification.id} type={notification.type} value={notification.value}
+                      <NotificationItem key={notification.guid} type={notification.type} value={notification.value}
                                         html={notification.html} markAsRead={() => markNotificationAsRead(notification.id)} id={notification.id}/>
                     ))}
                   </ul>
@@ -83,7 +83,7 @@ Notifications.defaultProps = {
 
 Notifications.propTypes = {
   displayDrawer: bool,
-  listNotifications: object,
+  listNotifications: array,
   handleDisplayDrawer: func,
   handleHideDrawer: func,
   markNotificationAsRead: func,

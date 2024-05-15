@@ -31,7 +31,8 @@ export const loginRequest = (email, password) => (dispatch) => {
     .then(res => {
       dispatch(res.ok? loginSuccess() : loginFailure());
     })
-    .catch(() => {
+    .catch((error) => {
       dispatch(loginFailure());
+      console.log(error);
     });
 };

@@ -20,15 +20,11 @@ export const setNotifications = (arr) => ({
   arr,
 });
 
-export const fetchNotifications = () => {
-  return (dispatch) => {
-    dispatch(setLoadingState(true));
-    return fetch('notifications.json')
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch(setNotifications(data));
-        dispatch(setLoadingState(false));
-      })
-      .catch((error) => console.log(error));
-  };
-};
+export const fetchNotifications = () => (dispatch) => {
+  dispatch(setLoadingState(true));
+  return fetch('notifications.json')
+    .then((res) => !res.ok ? console.log('Network response was not ok') : res.json())
+    .then((data) => (!Array.isArray(data) || !data) ? console.error('Invalid data format', data) : dispatch(setNotifications(data)))
+    .catch((error) => console.error('Fetch Error', error))
+    .finally(() => dispatch(setLoadingState(false)));
+}

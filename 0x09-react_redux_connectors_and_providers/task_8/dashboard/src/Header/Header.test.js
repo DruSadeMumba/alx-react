@@ -1,31 +1,23 @@
 import React from 'react';
-import {configure, mount} from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import Header from './Header';
-import {StyleSheetTestUtils} from "aphrodite";
-import AppContext from "../App/AppContext";
-import { JSDOM } from 'jsdom';
+import { Header } from './Header';
+import { StyleSheetTestUtils } from "aphrodite";
 
 configure({ adapter: new Adapter() });
-const { document } = new JSDOM('<!doctype html><html lang=""><body></body></html>').window;
-global.document = document;
-global.window = document.defaultView;
+
 describe('Header component', () => {
-  let wrapper;
-  beforeEach(() => {
-    wrapper = mount(
-      <Header shouldRender/>,
-      {context: AppContext}
-    );
+  const wrapper = shallow(<Header />);
+  beforeAll(() => {
     StyleSheetTestUtils.suppressStyleInjection();
   });
 
-  afterEach(() => {
+  afterAll(() => {
     StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
   });
 
   it('renders without crashing', () => {
-    expect(wrapper.render()).not.toBe(undefined);
+    expect(wrapper.exists()).toEqual(true);
   });
 
   it('renders img and h1 tags', () => {

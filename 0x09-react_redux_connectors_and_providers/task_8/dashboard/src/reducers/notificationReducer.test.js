@@ -1,4 +1,4 @@
-import { notificationReducer, initialState } from './notificationReducer';
+import { notificationReducer, initialNotiState } from './notificationReducer';
 import { MARK_AS_READ, SET_TYPE_FILTER, FETCH_NOTIFICATIONS_SUCCESS } from '../actions/notificationActionTypes';
 import { notificationsNormalizer } from '../schema/notifications';
 import { fromJS, Map } from 'immutable';
@@ -13,7 +13,7 @@ describe('notificationReducer', () => {
   };
 
   it ('should return the initial state', () => {
-    expect(notificationReducer(undefined, {})).toEqual(Map(initialState));
+    expect(notificationReducer(undefined, {})).toEqual(Map(initialNotiState));
   });
 
   it('should handle FETCH_NOTIFICATIONS_SUCCESS', () => {
